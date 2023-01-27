@@ -1,0 +1,17 @@
+.section-header-font {
+    font-family: Arial, sans-serif;
+    padding: 0 10px;
+    font-size: 20px;
+    color: dimgray;
+}
+
+.section-body-font {
+    font-family: Arial, sans-serif;
+    color: dimgray;
+    padding: 0 30px;
+    font-size: 16px;
+}
+
+.section-body-list {
+    padding: 0 50px;
+}

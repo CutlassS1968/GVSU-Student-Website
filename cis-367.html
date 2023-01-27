@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--https://stackoverflow.com/questions/31954089/how-can-i-reuse-a-navigation-bar-on-multiple-pages-->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/nav.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>CIS 367</title>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+<script>
+    $(function(){
+        $("#nav-placeholder").load("nav.html");
+    });
+</script>
+<h1 class="section-header-font">Homework:</h1>
+<ul class="section-body-font section-body-list">
+    <li><a href="courses/cis367/assignments/assignment_one/gasket1-johns.html" target="_blank">Homework One</a></li>
+</ul>
+</body>
+</html>
