@@ -1,5 +1,5 @@
 /*
-triangle-interact.js
+triangle-anim.js
 Erik Fredericks, c/o Ed Angel
 
 This file does the actual drawing of the triangle
