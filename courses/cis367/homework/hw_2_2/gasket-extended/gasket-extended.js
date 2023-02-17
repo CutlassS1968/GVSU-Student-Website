@@ -1,12 +1,19 @@
 "use strict";
 
 // Used in moving each vertex
-var x1 = -0.5;
-var y1 = -0.5;
+var x1 = -0.25;
+var y1 = -0.25;
 var x2 = 0;
-var y2 = 0.5;
-var x3 = 0.5;
-var y3 = -0.5;
+var y2 = 0.25;
+var x3 = 0.25;
+var y3 = -0.25;
+
+// Used to animate triangle
+var animx = 0.0;
+var animy = 0.0;
+var animxLoc, animyLoc;
+var animxDir = 1.0;
+var animyDir = 1.0;
 
 var canvas;
 var gl;
@@ -46,7 +53,12 @@ function init()
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
 
+    // Link shaders to application
+    animxLoc = gl.getUniformLocation(program, "animx");
+    animyLoc = gl.getUniformLocation(program, "animy");
+
     // Load the data into the GPU
+
     var bufferId = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
     gl.bufferData( gl.ARRAY_BUFFER, 50000, gl.STATIC_DRAW );
@@ -120,8 +132,40 @@ window.onload = init;
 
 function render()
 {
-    gl.clear( gl.COLOR_BUFFER_BIT );
-    gl.drawArrays( gl.TRIANGLES, 0, points.length );
-    points = [];
-    requestAnimFrame(init);
+    setTimeout(function() {
+        // Update position
+        animx += 0.05 * animxDir;
+        animy += 0.1 * animyDir;
+
+        // Add side collision
+        if (animy > 0.9) {
+            animy = 0.9;
+            animyDir *= -1.0;
+        }
+
+        if (animx > 0.9) {
+            animx = 0.9;
+            animxDir *= -1.0;
+        }
+
+        if (animy < -0.9) {
+            animy = -0.9;
+            animyDir *= -1.0;
+        }
+
+        if (animx < -0.9) {
+            animx = -0.9;
+            animxDir *= -1.0;
+        }
+
+        gl.uniform1f(animxLoc, animx);
+        gl.uniform1f(animyLoc, animy);
+
+        gl.clear( gl.COLOR_BUFFER_BIT );
+        gl.drawArrays( gl.TRIANGLES, 0, points.length );
+        points = [];
+        requestAnimFrame(init);
+    }, 50);
+
+
 }
