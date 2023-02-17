@@ -1,11 +1,19 @@
 "use strict";
 
+// Used in moving each vertex
 var x1 = -1;
 var y1 = -1;
 var x2 = 0;
 var y2 = 1;
 var x3 = 1;
 var y3 = -1;
+
+// Used to animate triangle
+var animx = 0.0;
+var animy = 0.0;
+var animxLoc, animyLoc;
+var animxDir = 1.0;
+var animyDir = 1.0;
 
 var canvas;
 var gl;
@@ -42,9 +50,12 @@ function init()
     gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
 
     //  Load shaders and initialize attribute buffers
-
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
+
+    // Link shaders to application
+    animxLoc = gl.getUniformLocation(program, "animx");
+    animyLoc = gl.getUniformLocation(program, "animy");
 
     // Load the data into the GPU
 
@@ -64,7 +75,22 @@ function init()
     };
 
     canvas.addEventListener("mouseup", function(event) {
-        console.log(event.clientX, event.clientY);
+        var rect = gl.canvas.getBoundingClientRect();
+        var newx = (event.clientX - rect.left) / canvas.width * 2 - 1;
+        var newy = (event.clientY - rect.top) / canvas.height * -2 + 1;
+        var vertex_id = document.querySelector('input[name="vertex"]:checked').value;
+        if (vertex_id == 0) {
+            x1 = newx;
+            y1 = newy;
+        } else if (vertex_id == 1) {
+            x2 = newx;
+            y2 = newy;
+        } else {
+            x3 = newx;
+            y3 = newy;
+        }
+
+        console.log(newx, newy);
     });
 
 

@@ -53,12 +53,11 @@ window.onload = function init() {
 
 // Render whatever is in our gl variable
 function render() {
-    gl.clear(gl.COLOR_BUFFER_BIT);
-
-    theta += 0.1;
-    gl.uniform1f(thetaLoc, theta);
-
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-
-    window.requestAnimFrame(render);
+    setTimeout(function() {
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        theta += 0.1;
+        gl.uniform1f(thetaLoc, theta);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+        window.requestAnimFrame(render);
+    }, 100);
 }
